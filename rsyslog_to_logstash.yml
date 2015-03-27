@@ -1,0 +1,16 @@
+---
+- hosts: all
+  user: root
+  tasks:
+  - name: Create rsyslog spool directory
+    file: path={{ rsyslog_spool }} state=directory
+
+  - name: Install rsyslogd template
+    template: src=templates/rsyslog2logstash.j2
+              dest=/etc/rsyslog.d/99-forward.conf
+    notify: reload rsyslogd
+
+  handlers:
+  - name: reload rsyslogd
+    service: name=rsyslog state=restarted
+

@@ -1,0 +1,2 @@
+---
+rsyslog_spool: /var/spool/rsyslog
